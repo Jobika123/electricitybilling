@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h2>Electricity Billing System</h2>
+
+Meter Number:
+<input type="text" id="meter_number"><br><br>
+
+Units Consumed:
+<input type="number" id="units"><br><br>
+
+
+Customer Id:
+<input type="number" id="customer_id"><br><br>
+
+<button onclick="generateBill()">Generate Bill</button>
+
+<script>
+function generateBill() {
+    fetch("/bill/add", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+        	
+        	meterNumber: document.getElementById("meter_number").value,
+            units: document.getElementById("units").value,
+            customerId:document.getElementById("customer_id").value
+        })
+    })
+    .then(res => res.json())
+    .then(data => alert("Total Bill Amount: ₹" + data.amount));
+}
+</script>
+
+</body>
+</html>
